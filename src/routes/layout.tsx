@@ -19,7 +19,7 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 
 
 export default component$(() => {
-  useStyles$(styles);
+  useStyles$(styles); //Estilo global
   return (
     <>
       <Navbar />
