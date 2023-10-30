@@ -1,11 +1,11 @@
-import { component$, Slot, useStyles$, useStore, useContextProvider } from '@builder.io/qwik';
+import { component$, Slot, useStyles$ } from '@builder.io/qwik';
 import type { RequestHandler } from "@builder.io/qwik-city";
 
 import Navbar from "~/components/shared/navbar/navbar";
 import Footer from "~/components/shared/footer/footer";
 
 import styles from "./styles.css?inline";
-import { PokemonGameContext, type PokemonGameState } from '~/context';
+import { PokemonProvider } from '~/context';
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -22,21 +22,31 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 export default component$(() => {
   useStyles$(styles); //Estilo global
 
-  const pokemonGame = useStore<PokemonGameState>({
-    pokemonId: 4,
-    showImage: true,
-    showBackImage: false
-  });
+  // const pokemonGame = useStore<PokemonGameState>({
+  //   pokemonId: 4,
+  //   showImage: true,
+  //   showBackImage: false
+  // });
 
-  useContextProvider(PokemonGameContext, pokemonGame);
+  // useContextProvider(PokemonGameContext, pokemonGame);
 
+  // //Estado inicial de ese Pokemon List Context
+  
+  //   const pokemonList = useStore<PokemonListState>({
+  //     currentPage: 1,
+  //     isLoading: false,
+  //     pokemons: []
+  //   });
+  
+  // useContextProvider(PokemonListContext, pokemonList);
+  
   return (
-    <>
+    <PokemonProvider>
       <Navbar />
       <main class="flex flex-col items-center justify-center">
         <Slot />
       </main>
       <Footer />
-    </>
+    </ PokemonProvider>
   );
 });
